@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "index.css" %>
+  <div id="main">
+    <div class="signUp">登録確認</div>
+    <%= form_for @members, :url => {:action => 'create'} do |f| %>
+    <table class="member">
+        <tr>
+          <td class="field"><%= f.label :userName, 'ユーザー名：' %></td>
+          <td class="field"><%= f.label :userName, @members.userName %></td>
+        </tr>
+        <tr>
+          <td class="field"><%= f.label :mailAddress, 'メールアドレス：' %></td>
+          <td class="field"><%= f.label :mailAddress, @members.mailAddress %></td>
+        </tr>
+        <tr>
+          <td class="field"><%= f.label :password, 'パスワード：' %></td>
+          <td class="field"><%= f.label :password, @members.password %></td>
+        </tr>
+        <tr>
+          <td class="actions"><%= f.submit '戻る', :name=>'back_btn' %></td>
+          <td class="actions"><%= f.submit '登録', :name=>'regist_btn' %></td>
+        </tr>
+    </table>
+    <% end %>
+  </div>
+
+

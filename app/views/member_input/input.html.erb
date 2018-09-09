@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag "index.css" %>
+  <div id="main">
+    <div class="signUp">新規登録</div>
+    <%= form_for @members, :url => {:action => 'confirm'} do |f| %>
+      <div class ="errors">
+        <% if @members.errors.any? %>
+          <h3>入力した内容にエラーが<%= @members.errors.count %>件あります</h3>
+          <ul>
+            <% @members.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      
+      <table class="member">
+        <tr>
+          <td class="field"><%= f.label :userName, 'ユーザー名：' %></td>
+          <td class="text_input"><%= f.text_field :userName %></td>
+        </tr>
+        <tr>
+          <td class="field"><%= f.label :mailAddress, 'メールアドレス：' %></td>
+          <td class="text_input"><%= f.text_field :mailAddress %></td>
+        </tr>
+        <tr>
+          <td class="field"><%= f.label :password, 'パスワード：' %></td>
+          <td class="text_input"><%= f.password_field :password %></td>
+          </td>
+        </tr>
+        <tr>
+          <td class="field"><%= f.label :password_confirmation, 'パスワード(確認)：' %></td>
+          <td class="text_input"><%= f.password_field :password_confirmation %></td>
+        </tr>
+        <tr>
+          <td class="actions"><%= f.submit '戻る', :name=>'back_btn' %></td>
+          <td class="actions"><%= f.submit '登録', :name=>'regist_btn' %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>

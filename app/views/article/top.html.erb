@@ -1,0 +1,54 @@
+<%= stylesheet_link_tag "index.css" %>
+    <div id="header">
+        <div class="login">
+            <%= link_to 'ログイン', member_input_login_path %><br>
+        </div>
+        
+        <div>
+            <% if flash[:notice] %>
+                <p><%= flash[:notice] %></p>
+            <% end %>
+        </div>
+        
+        <%= form_for @articles, :url => {:action => 'search'} do |f| %>
+            <div class ="errors">
+            <% if @articles.errors.any? %>
+                <h3>入力した内容にエラーが<%= @articles.errors.count %>件あります</h3>
+                    <ul>
+                        <% @articles.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+            <% end %>
+            </div>
+        
+            <%= f.text_field :articleName %>
+            <%= f.submit '検索' %>
+        <% end %>
+        
+        <div class="top_tab">
+            <%= link_to 'ホーム', article_top_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to '特集', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'PS4', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'Switch', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'PCゲーム', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'スマホ', article_article_list_path %>
+        </div>
+    </div>
+    <div id="main">
+        <%= text_area :page, :comtent, :maxlength => "20" %><br>
+        <%= text_area :page, :comtent, :maxlength => "20" %>
+    </div> 
+    <div id="footer">
+        <p>Copyright © 2018 TAKADA Inc. All Rights Reserved.</p>
+    </div>

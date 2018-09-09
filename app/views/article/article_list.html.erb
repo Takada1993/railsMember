@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag "index.css" %>
+    <div id="header">
+        <div class="login">
+            <%= link_to 'ログイン', member_input_login_path %><br>
+        </div>
+        <div>
+            <% if flash[:notice] %>
+                <p><%= flash[:notice] %></p>
+            <% end %>
+        </div>
+        <%= form_tag action: :search do %>
+            <%= text_field_tag :articleName %>
+            <%= submit_tag '検索' %>
+        <% end %>
+        <div class="top_tab">
+            <%= link_to 'ホーム', article_top_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to '特集', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'PS4', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'Switch', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'PCゲーム', article_article_list_path %>
+        </div>
+        <div class="top_tab">
+            <%= link_to 'スマホ', article_article_list_path %>
+        </div>
+    </div>
+    <div id="main">
+        <ul>
+            <% @articles.each do |article| %>
+                <li><%= article.articleName %></li>
+            <% end %>
+        </ul>
+    </div> 
+    <div id="footer">
+        <p>Copyright © 2018 TAKADA Inc. All Rights Reserved.</p>
+    </div>
