@@ -1,25 +1,29 @@
-<%= stylesheet_link_tag "index.css" %>
+<%= stylesheet_link_tag "index/member_input.css" %>
   <div id="main">
     <div class="signUp">登録確認</div>
     <%= form_for @members, :url => {:action => 'create'} do |f| %>
-    <table class="member">
-        <tr>
-          <td class="field"><%= f.label :userName, 'ユーザー名：' %></td>
-          <td class="field"><%= f.label :userName, @members.userName %></td>
-        </tr>
-        <tr>
-          <td class="field"><%= f.label :mailAddress, 'メールアドレス：' %></td>
-          <td class="field"><%= f.label :mailAddress, @members.mailAddress %></td>
-        </tr>
-        <tr>
-          <td class="field"><%= f.label :password, 'パスワード：' %></td>
-          <td class="field"><%= f.label :password, @members.password %></td>
-        </tr>
-        <tr>
-          <td class="actions"><%= f.submit '戻る', :name=>'back_btn' %></td>
-          <td class="actions"><%= f.submit '登録', :name=>'regist_btn' %></td>
-        </tr>
-    </table>
+      <ul id="member">
+        <li class="field">
+          <span class="item">ユーザー名</span>
+          <span class="text_input"><%= @members.userName %></span>
+          <%= f.hidden_field :userName, :value => @members.userName %>
+        </li>
+        <li class="field">
+          <span class="item">メールアドレス</span>
+          <span class="text_input"><%= @members.mailAddress %></span>
+            <%= f.hidden_field :mailAddress, :value => @members.mailAddress %>
+        </li>
+        <li class="field">
+          <span class="item">パスワード</span>
+          <span class="text_input"><%= @members.password %></span>
+            <%= f.hidden_field :password, :value => @members.password %>
+            <%= f.hidden_field :password_confirmation, :value => @members.password_confirmation %>
+        </li>
+        <li class="field">
+          <%= f.submit '戻る', :name=>'back_btn', :class=>"actions" %>
+          <%= f.submit '登録', :name=>'regist_btn', :class=>"actions" %>
+        </li>
+      </ul>
     <% end %>
   </div>
 

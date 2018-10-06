@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "index/article.css" %>
+  <div id="main">
+    <div class="signUp">新規記事登録</div>
+    
+    <%= form_tag(:controller => "article", :action => "create") do %>
+      
+      <ul id="article">
+        <li class="field">
+          <%= label :articleName, 'タイトル', :class=>'item' %>
+          <%= text_field :articleName, :class=>'text_input' %>
+        </li>
+        <li class="field">
+          <%= label :articleDetail, '本文', :class=>'item' %>
+          <%= text_area :articleDetail, :size => "20x10", :class=>'text_input'  %>
+        </li>
+        <li class="field">
+          <%= label_tag :articleDetails ,'種類' %>
+          <%= select :articleClassification, :values, [["PS4", "1"], ["Switch", "2"], ["PCゲーム", "3"], ["スマホ", "4"]] %>
+        </li>
+        <li class="field">
+          <%= submit_tag '戻る', :name=>'back_btn', :class=>"actions"  %>
+          <%= submit_tag '登録', :name=>'regist_btn', :class=>"actions" %>
+        </li>
+      </ul>
+    <% end %>
+  </div>

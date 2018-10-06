@@ -1,54 +1,78 @@
-<%= stylesheet_link_tag "index.css" %>
-    <div id="header">
-        <div class="login">
-            <%= link_to 'ログイン', member_input_login_path %><br>
-        </div>
-        
-        <div>
-            <% if flash[:notice] %>
-                <p><%= flash[:notice] %></p>
-            <% end %>
-        </div>
-        
-        <%= form_for @articles, :url => {:action => 'search'} do |f| %>
-            <div class ="errors">
-            <% if @articles.errors.any? %>
-                <h3>入力した内容にエラーが<%= @articles.errors.count %>件あります</h3>
-                    <ul>
-                        <% @articles.errors.full_messages.each do |message| %>
-                            <li><%= message %></li>
-                        <% end %>
-                    </ul>
-            <% end %>
-            </div>
-        
-            <%= f.text_field :articleName %>
-            <%= f.submit '検索' %>
-        <% end %>
-        
-        <div class="top_tab">
-            <%= link_to 'ホーム', article_top_path %>
-        </div>
-        <div class="top_tab">
-            <%= link_to '特集', article_article_list_path %>
-        </div>
-        <div class="top_tab">
-            <%= link_to 'PS4', article_article_list_path %>
-        </div>
-        <div class="top_tab">
-            <%= link_to 'Switch', article_article_list_path %>
-        </div>
-        <div class="top_tab">
-            <%= link_to 'PCゲーム', article_article_list_path %>
-        </div>
-        <div class="top_tab">
-            <%= link_to 'スマホ', article_article_list_path %>
-        </div>
+<%= stylesheet_link_tag "index/article.css" %>
+  <div id="header">
+    <div id="login">    
+      <% if @memberName %>
+        <p><%= @memberName %>さん</p>
+        <%= link_to 'ログアウト',:controller => 'session', :action => 'logout', :class=>'login_link' %>
+        <%= link_to 'マイページ', member_input_edit_path, :class=>'login_link' %>
+        <%= link_to '新規記事投稿', article_article_input_path, :class=>'login_link' %>
+      <% else %>
+        <p>ゲストさん</p>
+        <%= link_to 'ログイン', session_login_path, :class=>'login_link' %>
+      <% end %>
     </div>
-    <div id="main">
-        <%= text_area :page, :comtent, :maxlength => "20" %><br>
-        <%= text_area :page, :comtent, :maxlength => "20" %>
+    
+    <div class="errors">
+      <% if flash[:notice] %>
+        <p><%= flash[:notice] %></p>
+      <% end %>
+    </div>
+    
+    <div id="search">   
+      <%= form_tag(:controller => "article", :action => "search") do %>
+        <%= text_field_tag :articleName, "", :id => "search_box" %>
+        <%= submit_tag '検索', :id=>"search_btn" %>
+      <% end %>
     </div> 
-    <div id="footer">
-        <p>Copyright © 2018 TAKADA Inc. All Rights Reserved.</p>
+    
+    <div id="tabs">
+      <ul>
+        <li><%= link_to 'ホーム', article_top_path, :class=>'top_tab'  %></li>
+        <li><%= link_to '特集', article_article_list_path, :class=>'top_tab' %></li>
+        <li><%= link_to 'PS4', article_article_list_path(:articleClassification => "1"), :method => :post, :class=>'top_tab' %></li>
+        <li><%= link_to 'Switch', article_article_list_path(:articleClassification => "2"), :method => :post, :class=>'top_tab' %></li>
+        <li><%= link_to 'PCゲーム', article_article_list_path(:articleClassification => "3"), :method => :post, :class=>'top_tab' %></li>
+        <li><%= link_to 'スマホ', article_article_list_path(:articleClassification => "4"), :method => :post, :class=>'top_tab' %></li>
+      </ul>
+    </div>    
+  </div>
+  
+  <div id="main">
+    <div id="titles">
+      <ul>
+        <li>
+          <%= text_field_tag(
+                              'article_title', 
+                              "test",
+                              :onclick => "this.select()",
+                              :readonly => true,
+                              size: "50x50",
+                              :class=>'article_title'
+                              ) %>
+        </li>
+        <li>
+          <%= text_field_tag(
+                              'article_title', 
+                              "test",
+                              :onclick => "this.select()",
+                              :readonly => true,
+                              size: "50x50",
+                              :class=>'article_title'
+                              ) %>
+        </li>
+        <li>
+          <%= text_field_tag(
+                              'article_title', 
+                              "test",
+                              :onclick => "this.select()",
+                              :readonly => true,
+                              size: "50x50",
+                              :class=>'article_title'
+                              ) %>
+        </li>
+      </ul>
     </div>
+  </div> 
+  <div id="footer">
+    <p>Copyright © 2018 TAKADA Inc. All Rights Reserved.</p>
+  </div>

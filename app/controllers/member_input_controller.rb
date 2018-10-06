@@ -2,38 +2,69 @@ class MemberInputController < ApplicationController
   before_action :set_member, only: [:input, :create]
   
   def input
-    # TODO: cssを適用して設計書通りにレイアウトを整える
-    # cssを会員と記事で別々に適用したい場合は下記のように記述すればフォルダ内のCSSはすべて適用される。
-    # ※ただしフォルダ構成についてはよく検討して作成すること
-    # Rails.application.config.assets.precompile += %w( (フォルダ名)/* )
   end
   
   def new
     @members = Member.new
   end
  
+ # 登録確認
   def confirm
     @members = Member.new(member_params)
-    
+    # 戻るボタン押下でトップへ遷移
     if params[:back_btn]
       redirect_to '/article/top'
+    #登録ボタン押下で確認画面へ遷移
     elsif params[:regist_btn]
-      render 'member_input/input' if @members.invalid?
-      render 'member_input/confirmation' if @members.valid?
+      #エラーチェック
+      if @members.valid?
+        session[:membersInput] = @members
+        render 'member_input/confirmation'
+      else 
+        render 'member_input/input'
+      end
+      
     end
   end
   
+  #会員情報登録
   def create
+    #戻るボタン押下で登録画面へ遷移
     if params[:back_btn]
-      render 'member_input/input'
+      redirect_to '/member_input/input'
+      session[:membersInput] = nil
+    #登録ボタン押下で会員情報登録
     elsif params[:regist_btn]
-          Member.create(
-                  userName: params[:userName],mailAddress: params[:mailAddress],
-                  password: params[:password],
-                  )
-      render 'member_input/completion'
+      @members = Member.create(member_params)
+      if @members.save
+        render 'member_input/completion'
+        session[:membersInput] = nil
+      end
     end
   end
+  
+  #登録情報変更
+  
+  def edit
+    @members = Member.find(params[:id])
+  end
+
+  def update
+    # 戻るボタン押下でトップへ遷移
+    if params[:back_btn]
+      redirect_to '/article/top'
+    #変更ボタン押下で登録情報更新
+    elsif params[:regist_btn]
+      @members = Member.find(params[:id])
+      if @members.update_attributes(member_params)
+        redirect_to '/article/top'
+        flash[:success] = "プロフィールを更新しました" 
+      else
+        render'edit'
+      end
+    end
+  end
+    
   
   private
   

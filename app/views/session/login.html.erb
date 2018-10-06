@@ -1,0 +1,30 @@
+ログイン
+
+  
+<div class="errors">
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
+</div>
+
+<%= form_tag action: :login do %>
+
+<table>
+  <tr>
+    <td><%= label :mailAddress, 'メールアドレス:' %></td>
+    <td><%= text_field_tag :mailAddress %></td>
+  </tr>
+  <tr>
+    <td><%= label :password, 'パスワード:' %></td>
+    <td><%= password_field_tag :password %></td>
+  </tr>
+  <tr>
+    <td><%= submit_tag '戻る', :name=>'back_btn' %></td>
+    <td><%= submit_tag 'ログイン', :name=>'login_btn' %></td>
+  </tr>
+  <tr>
+    <td><%= submit_tag '新規登録', :name=>'new_btn' %></td>
+  </tr>
+</table>
+
+<% end %>

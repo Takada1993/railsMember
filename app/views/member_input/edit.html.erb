@@ -1,18 +1,12 @@
 <%= stylesheet_link_tag "index/member_input.css" %>
   <div id="main">
-    <div class="signUp">新規登録</div>
+    <div class="signUp">変更</div>
     
-    <%= form_for @members, :url => {:action => 'confirm'} do |f| %>
-      <div class ="errors">
-        <% if @members.errors.any? %>
-          <h3>入力した内容にエラーが<%= @members.errors.count %>件あります</h3>
-          <ul>
-            <% @members.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
+    <%= form_for @members, :url => {:action => 'update'} do |f| %>
+    
+      <% if flash[:success] %>
+        <p><%= flash[:success] %></p>
+      <% end %>
       
       <ul id="member">
         <li class="field">
@@ -33,7 +27,7 @@
         </li>
         <li class="field">
           <%= f.submit '戻る', :name=>'back_btn', :class=>"actions"  %>
-          <%= f.submit '登録', :name=>'regist_btn', :class=>"actions" %>
+          <%= f.submit '変更', :name=>'regist_btn', :class=>"actions" %>
         </li>
       </ul>
     <% end %>
